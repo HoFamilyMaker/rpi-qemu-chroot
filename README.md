@@ -7,7 +7,7 @@ ARMのバイナリを実行する
 * ホスト: Ubuntu 18.04(x86\_64)
 * イメージ: Raspbian(2018-06-27-raspbian-stretch-lite)
 
-chroot したときなどUnknown QEMU\_IFLA_\* なエラーがでるけどとりあえず動く。
+sudo したときなどUnknown QEMU\_IFLA_\* なエラーがでるけどとりあえず動く。
 
 # 利用方法
 
