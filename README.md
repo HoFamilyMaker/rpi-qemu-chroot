@@ -7,6 +7,8 @@ ARMのバイナリを実行する
 * ホスト: Ubuntu 18.04(x86\_64)
 * イメージ: Raspbian(2018-06-27-raspbian-stretch-lite)
 
+chroot したときなどUnknown QEMU\_IFLA_\* なエラーがでるけどとりあえず動く。
+
 # 利用方法
 
 ## セットアップ
@@ -44,6 +46,15 @@ ARMのバイナリを実行する
 
 	# uname -a
 	Linux uvm2 4.15.0-32-generic #35-Ubuntu SMP Fri Aug 10 17:58:07 UTC 2018 armv7l GNU/Linux
+
+# SDへイメージファイルの書き込み
+
+pv を使うと進捗を確認しながら書き込める。
+
+/dev/sdX は自分の環境にあわせること
+
+	$ sudo apt install pv
+	$ sudo sh -c 'pv images/raspi1.img | dd of=/dev/sdX bs=16M'
 
 # 参考URL
 
