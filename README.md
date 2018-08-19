@@ -3,7 +3,7 @@
 qemu-user-static を使用して x86_64 マシンで Raspberry Pi環境へchrootできる。
 ARMのバイナリを実行する
 
-Ubuntu 18.04(x06_64)で動作確認
+Ubuntu 18.04(x86_64)で動作確認
 
 # 利用方法
 
