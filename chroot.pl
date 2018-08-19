@@ -44,18 +44,13 @@ if($UID != 0 ) {
 
 mkpath("$mountdir/$name") unless(-d "$mountdir/$name");
 
+my $loopback;
 if(-f $image) {
 	# ファイルの場合
-	my $fdisk=`fdisk -l $image`;
-	my $units;
-	if($fdisk=~/^\QUnits: sectors of 1 * \E(\d+) = (\d+) bytes/m) { $units=$1 }
-	my $start;
-	if($fdisk=~/^(.+) 83 Linux$/m) {
-		my @buf=split(/\s+/,$1);
-		$start=$buf[1]*$units;
-	}
-	my $mount;
-	system('mount','-v','-o',"offset=$start",'-t','ext4',$image,"$mountdir/$name");
+	$loopback=`losetup -f -P --show $image`;
+	chomp $loopback;
+	system('mount','-v','-t','ext4',$loopback.'p2',"$mountdir/$name");
+	system('mount','-v','-t','vfat',$loopback.'p1',"$mountdir/$name/boot");
 
 } elsif(-b $image) {
 	# ブロックデバイスの場合
@@ -85,12 +80,10 @@ system(qw( umount proc/   ));
 
 chdir($basedir);
 
-if(-f $image) {
-	system('umount','-l',"$mountdir/$name");
-
-} elsif(-b $image) {
-	system('umount','-l',"$mountdir/$name/boot");
-	system('umount','-l',"$mountdir/$name");
+system('umount','-l',"$mountdir/$name/boot");
+system('umount','-l',"$mountdir/$name");
+if($loopback) {
+	system('losetup','-d',$loopback);
 }
 
 sleep(1);
