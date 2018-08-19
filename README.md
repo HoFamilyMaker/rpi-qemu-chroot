@@ -26,7 +26,13 @@ images にraspbian image をおく
 
 ## 環境に入る
 
+イメージファイルの場合
+
 	$ sudo ./chroot.pl images/raspi1.img raspi1
+
+ブロックデバイス(SDカードなど)の場合
+
+	$ sudo ./chroot.pl /dev/sdc raspi1
 
 ## 確認
 
