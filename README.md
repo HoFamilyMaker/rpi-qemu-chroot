@@ -1,9 +1,11 @@
 # AMD64マシンでRaspberry Piエミュレーション環境
 
-qemu-user-static を使用して x86_64 マシンで Raspberry Pi環境へchrootできる。
+qemu-user-static を使用して x86\_64 マシンで Raspberry Pi環境へchrootできる。
 ARMのバイナリを実行する
 
-Ubuntu 18.04(x86_64)で動作確認
+以下の環境で動作確認しています
+* ホスト: Ubuntu 18.04(x86\_64)
+* イメージ: Raspbian(2018-06-27-raspbian-stretch-lite)
 
 # 利用方法
 
@@ -13,24 +15,28 @@ Ubuntu 18.04(x86_64)で動作確認
 	$ mkdir images
 	$ cd images
 
-images にraspbian image をおく
+## イメージを使用する
+
+### images にraspbian image を展開
 
 	$ unzip 2018-06-27-raspbian-stretch-lite.zip
 	$ cd ..
 
-## 領域の拡張
+### 領域の拡張
 
 4GBのイメージを作成する
 
 	$ sudo ./expand.pl images/2018-06-27-raspbian-stretch-lite.img images/raspi1.img 4
 
-## 環境に入る
-
-イメージファイルの場合
+### 環境に入る
 
 	$ sudo ./chroot.pl images/raspi1.img raspi1
 
-ブロックデバイス(SDカードなど)の場合
+## ブロックデバイス(SDカードなど)を使用する
+
+すでにマウントされている場合は一度アンマウントしておくこと。
+
+### 環境に入る
 
 	$ sudo ./chroot.pl /dev/sdc raspi1
 
